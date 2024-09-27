@@ -1,0 +1,27 @@
+project:
+  type: website
+
+website:
+  title: "Employment data"
+  image: https://www.bfi.org.uk/dist/client/0207614d447715c2d2b9.svg
+  image-alt: Logo of British Film Institute
+  open-graph: true
+  repo-url: https://github.com/BFI-Research-and-Statistics-Unit/employment
+  repo-actions: [edit, issue]
+  navbar:
+    background: "#e50076"
+    logo: https://www.bfi.org.uk/dist/client/0207614d447715c2d2b9.svg
+    logo-alt: Logo of British Film Institute
+    right:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+
+format:
+  html:
+    theme: [cosmo, styles.scss]
+    css: styles.css
+    toc: true
+
+
+
