@@ -7,6 +7,8 @@ execute:
   echo: false
   warning: false
   code-fold: false
+title-block-banner: true
+page-layout: article
 ---
 :::{.callout-note collapse="false"}
 ## Reports in this series

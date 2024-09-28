@@ -3,3 +3,7 @@
 .navbar {
   font-family: 'Source Sans Pro';
 }
+
+#quarto-header {
+  border-bottom: 1px solid white;
+}

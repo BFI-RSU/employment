@@ -17,6 +17,8 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - href: idbr-report.qmd
+        text: Workplaces & Enterprises
 
 format:
   html:
