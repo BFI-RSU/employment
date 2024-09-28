@@ -1,6 +1,6 @@
 ---
 title: "IDBR employment data report"
-description: Data on film and video employment by workplace and enterprise type by nation and region, collected via the Inter Departmental Business Register. 
+description: Data on film and video employment by workplace, and enterprise type by nation and region, collected via the Inter-Departmental Business Register. 
 author: "Ian Cade and Brian Tarran"
 date: 09/28/2024
 execute: 
@@ -49,7 +49,7 @@ This analysis is based on data from the Inter-Departmental Business Register (ID
 The [About](about.qmd) page contains further details on what activities are included and excluded within each SIC code. 
 
 ## Workplaces
-This section reports data from IDBR on local units, which are defined by ONS as "an individual site (for example a factory or shop) within an enterprise". We refer to these local units as "workplaces".
+This section reports data from IDBR on local units, which are defined by ONS as "an individual site (for example a factory or shop) within an enterprise". We refer to these local units as "workplaces", and workplaces are grouped according to employee size band.
 
 ### Film and video production
 ```{r}
@@ -102,11 +102,6 @@ reactable(
       format(sum(values), big.mark = ",")
       }, 
       format = colFormat(separators = TRUE, digits = 0),
-      footerStyle = list(fontWeight = "bold")),
-    `Workplace size band` = colDef(footer = function(values) {
-      format(sum(values), big.mark = ",")
-      }, 
-      format = colFormat(separators = TRUE, digits = 0),
       footerStyle = list(fontWeight = "bold"))
   )
 )
@@ -140,8 +135,8 @@ production_workplaces_fig <- plot_ly(production_workplaces_fig,
   type = 'scatter', 
   mode = 'lines+markers', 
   text = ~paste("Year:", format(Year, "%Y"), 
-                "<br>% of all employees:", percentage, 
-                "<br>Workplace size:", size),
+                "<br>Workplace size:", size,
+                "<br>% of total employees:", percentage),
   hoverinfo = 'text'
 ) %>%
   layout(
@@ -153,7 +148,7 @@ production_workplaces_fig <- plot_ly(production_workplaces_fig,
       tickmode = "auto"   # Dynamically adjust based on zoom level
     ),
     yaxis = list(
-      title = "Percentage of all employees",
+      title = "Percentage of total employees",
       rangemode = "tozero",  # Ensure the y-axis starts at 0
       fixedrange = FALSE     # Allow dynamic zooming
     ),
@@ -236,11 +231,6 @@ reactable(
       format(sum(values), big.mark = ",")
       }, 
       format = colFormat(separators = TRUE, digits = 0),
-      footerStyle = list(fontWeight = "bold")),
-    `Workplace size band` = colDef(footer = function(values) {
-      format(sum(values), big.mark = ",")
-      }, 
-      format = colFormat(separators = TRUE, digits = 0),
       footerStyle = list(fontWeight = "bold"))
   )
 )
@@ -274,8 +264,8 @@ distribution_workplaces_fig <- plot_ly(distribution_workplaces_fig,
   type = 'scatter', 
   mode = 'lines+markers', 
   text = ~paste("Year:", format(Year, "%Y"), 
-                "<br>% of all employees:", percentage, 
-                "<br>Workplace size:", size),
+                "<br>Workplace size:", size,
+                "<br>% of total employees:", percentage),
   hoverinfo = 'text'
 ) %>%
   layout(
@@ -287,7 +277,7 @@ distribution_workplaces_fig <- plot_ly(distribution_workplaces_fig,
       tickmode = "auto"   # Dynamically adjust based on zoom level
     ),
     yaxis = list(
-      title = "Percentage of all employees",
+      title = "Percentage of total employees",
       rangemode = "tozero",  # Ensure the y-axis starts at 0
       fixedrange = FALSE     # Allow dynamic zooming
     ),
@@ -370,11 +360,6 @@ reactable(
       format(sum(values), big.mark = ",")
       }, 
       format = colFormat(separators = TRUE, digits = 0),
-      footerStyle = list(fontWeight = "bold")),
-    `Workplace size band` = colDef(footer = function(values) {
-      format(sum(values), big.mark = ",")
-      }, 
-      format = colFormat(separators = TRUE, digits = 0),
       footerStyle = list(fontWeight = "bold"))
   )
 )
@@ -408,8 +393,8 @@ exhibition_workplaces_fig <- plot_ly(exhibition_workplaces_fig,
   type = 'scatter', 
   mode = 'lines+markers', 
   text = ~paste("Year:", format(Year, "%Y"), 
-                "<br>% of all employees:", percentage, 
-                "<br>Workplace size:", size),
+                "<br>Workplace size:", size,
+                "<br>% of total employees:", percentage),
   hoverinfo = 'text'
 ) %>%
   layout(
@@ -421,7 +406,7 @@ exhibition_workplaces_fig <- plot_ly(exhibition_workplaces_fig,
       tickmode = "auto"   # Dynamically adjust based on zoom level
     ),
     yaxis = list(
-      title = "Percentage of all employees",
+      title = "Percentage of total employees",
       rangemode = "tozero",  # Ensure the y-axis starts at 0
       fixedrange = FALSE     # Allow dynamic zooming
     ),
