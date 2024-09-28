@@ -1,0 +1,541 @@
+---
+title: "IDBR employment data report"
+description: Data on film and video employment by workplace and enterprise type by nation and region, collected via the Inter Departmental Business Register. 
+author: "Ian Cade and Brian Tarran"
+date: 09/28/2024
+execute: 
+  echo: false
+  warning: false
+  code-fold: false
+---
+:::{.callout-note collapse="false"}
+## Reports in this series
+| Report title                                          | Source                                                                                            | Date range         | Data publication date | Next data update | RSU analysis date |
+|-------------------------------------------------------|---------------------------------------------------------------------------------------------------|--------------------|-----------------------|------------------|-------------------|
+| [IDBR employment report](idbr-report.qmd)             | [ONS](https://www.ons.gov.uk/aboutus/whatwedo/paidservices/interdepartmentalbusinessregisteridbr) | Year to March 2023 | September 2023        | September 2024   | September 2024    |
+| APS                                                   | APS                                                                                               |                    |                       |                  |                   |
+
+: {.striped .hover}
+:::
+
+## About this report
+This analysis is based on data from the Inter-Departmental Business Register (IDBR), a comprehensive list of UK businesses used by government for statistical purposes. According to the ONS: "The two main sources of input are Value Added Tax (VAT) and Pay As You Earn (PAYE) records from HMRC. Additional information comes from Companies House, Dun and Bradstreet and ONS business surveys. The IDBR covers around 2.7 million businesses in all sectors of the economy, but since the main two tax sources have thresholds, very small businesses operating below these will, in most cases, not be included."
+
+### SIC codes used in this analysis
+
+::: {.grid}
+
+::: {.g-col-6}
+**Film and video production:**
+
+* 59111: Motion picture production activities
+* 59112: Video production activities
+* 59120: Motion picture, video and tv post-production activities
+:::
+::: {.g-col-6}
+**Film and video distribution:**
+
+* 59131: Motion picture distribution activities
+* 59132: Video distribution activities
+
+**Film exhibition:**
+
+* 59140: Motion picture projection activities
+:::
+:::
+
+The [About](about.qmd) page contains further details on what activities are included and excluded within each SIC code. 
+
+## Workplaces
+This section reports data from IDBR on local units, which are defined by ONS as "an individual site (for example a factory or shop) within an enterprise". We refer to these local units as "workplaces".
+
+### Film and video production
+```{r}
+#| label: tbl-production-workplaces
+#| tbl-cap: "Numbers of employees in film and video production by size of workplace for the UK, 2023. [Download data](data/IDBR.xlsx)."
+
+# Install packages
+library(dplyr)
+library(readxl)
+library(here)
+library(reactable)
+library(tidyverse)
+library(plotly)
+library(ggplot2)
+library(plotly)
+library(tidyr)
+
+# Import data from specific sheet
+production_workplaces <- read_xlsx(here::here("data/IDBR.xlsx"), sheet = "T1", range = cell_rows(2:5))
+
+# Convert decimals to whole numbers
+production_workplaces <- production_workplaces %>%
+  mutate(
+    `% of total workplaces` = `% of total workplaces` * 100,
+    `% of total employees` = `% of total employees` * 100,
+    )
+
+# Create the reactable table and add total row as footer, with bold styling
+reactable(
+  production_workplaces, striped = TRUE, highlight = TRUE, compact = TRUE,
+  columns = list(
+    `Workplace size band` = colDef(footer = "Total", format = colFormat(separators = TRUE),
+      footerStyle = list(fontWeight = "bold")),
+    `Number of workplaces in band` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold")),
+    `% of total workplaces` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold")),
+    `Number of employees in band` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold")),
+    `% of total employees` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold")),
+    `Workplace size band` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold"))
+  )
+)
+```
+
+```{r}
+#| label: fig-production-workplaces
+#| fig-cap: "Film and video production employees by workplace size band, percentage of total, 2013-2023. [Download data](data/IDBR.xlsx)."
+
+# Import data from specific sheet
+production_workplaces_series <- read_xlsx(here::here("data/IDBR.xlsx"), sheet = "F1", range = cell_rows(2:13))
+
+# Convert decimals to whole numbers
+production_workplaces_series <- production_workplaces_series[1:4] %>%
+  mutate(
+    `50+ employees` = round(`50+ employees` * 100, 0),
+    `11-49 employees` = round(`11-49 employees` * 100, 0),
+    `1-10 employees` = round(`1-10 employees` * 100, 0)
+    )
+
+# Convert data to tidy format and expand date to YEAR-MM-DD format
+production_workplaces_fig <- production_workplaces_series %>%
+  pivot_longer(!Year, names_to = "size", values_to = "percentage") %>%
+  mutate(Year = as.Date(paste0(Year, "-01-01")))
+
+# Create plotly plot
+production_workplaces_fig <- plot_ly(production_workplaces_fig, 
+  x = ~Year, 
+  y = ~percentage, 
+  color = ~size,
+  type = 'scatter', 
+  mode = 'lines+markers', 
+  text = ~paste("Year:", format(Year, "%Y"), 
+                "<br>% of all employees:", percentage, 
+                "<br>Workplace size:", size),
+  hoverinfo = 'text'
+) %>%
+  layout(
+    title = "",
+    xaxis = list(
+      title = "",
+      tickformat = "%Y",  # Format to show only the year
+      dtick = "M12",      # Show every year on the x-axis
+      tickmode = "auto"   # Dynamically adjust based on zoom level
+    ),
+    yaxis = list(
+      title = "Percentage of all employees",
+      rangemode = "tozero",  # Ensure the y-axis starts at 0
+      fixedrange = FALSE     # Allow dynamic zooming
+    ),
+    legend = list(
+      orientation = "h", 
+      x = 0.5, 
+      xanchor = "center", 
+      y = -0.2, 
+      yanchor = "top",
+      title = list(text = "Workplace size")
+    ),
+    font = list(
+      family = "Source Sans Pro",  # Use "Source Sans Pro" font throughout
+      size = 12,
+      color = "black"
+    ),
+    shapes = list(
+      list(
+        type = "rect",
+        x0 = "2020-03-23", x1 = "2021-07-19",  # Shaded region start and end dates
+        y0 = 0, y1 = 1,  # Cover the entire y-axis
+        xref = "x", yref = "paper",  # Refer to x as time, y as paper height
+        fillcolor = "lightblue", opacity = 0.3, line = list(width = 0)
+      )
+    ),
+    annotations = list(
+      list(
+        x = "2020-09-23",  # Adjust date based on preferred alignment
+        y = 0.05,  # Set positioning based on proportion of y-axis height
+        text = "COVID-19<br>pandemic",  # Annotation text
+        showarrow = FALSE,  # No arrow pointing to the annotation
+        xref = "x", yref = "paper",  # Reference the x-axis for date, y-axis for height
+        font = list(color = "black", size = 12),
+        align = "left"
+      )
+    )
+  )
+
+# Display the Plotly object
+production_workplaces_fig
+```
+
+### Film and video distribution
+```{r}
+#| label: tbl-distribution-workplaces
+#| tbl-cap: "Numbers of employees in film and video distribution by size of workplace for the UK, 2023. [Download data](data/IDBR.xlsx)."
+
+# Import data from specific sheet
+distribution_workplaces <- read_xlsx(here::here("data/IDBR.xlsx"), sheet = "T2", range = cell_rows(2:5))
+
+# Convert decimals to whole numbers
+distribution_workplaces <- distribution_workplaces %>%
+  mutate(
+    `% of total workplaces` = `% of total workplaces` * 100,
+    `% of total employees` = `% of total employees` * 100
+    )
+
+# Create the reactable table and add total row as footer, with bold styling
+reactable(
+  distribution_workplaces, striped = TRUE, highlight = TRUE, compact = TRUE,
+  columns = list(
+    `Workplace size band` = colDef(footer = "Total", format = colFormat(separators = TRUE),
+      footerStyle = list(fontWeight = "bold")),
+    `Number of workplaces in band` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold")),
+    `% of total workplaces` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold")),
+    `Number of employees in band` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold")),
+    `% of total employees` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold")),
+    `Workplace size band` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold"))
+  )
+)
+```
+
+```{r}
+#| label: fig-distribution-workplaces
+#| fig-cap: "Film and video distribution employees by workplace size band, percentage of total, 2013-2023. [Download data](data/IDBR.xlsx)."
+
+# Import data from specific sheet
+distribution_workplaces_fig <- read_xlsx(here::here("data/IDBR.xlsx"), sheet = "F2", range = cell_rows(2:13))
+
+# Convert decimals to whole numbers
+distribution_workplaces_fig <- distribution_workplaces_fig[1:4] %>%
+  mutate(
+    `50+ employees` = round(`50+ employees` * 100, 0),
+    `11-49 employees` = round(`11-49 employees` * 100, 0),
+    `1-10 employees` = round(`1-10 employees` * 100, 0)
+    )
+
+# Convert data to tidy format and expand date to YEAR-MM-DD format
+distribution_workplaces_fig <- distribution_workplaces_fig %>%
+  pivot_longer(!Year, names_to = "size", values_to = "percentage") %>%
+  mutate(Year = as.Date(paste0(Year, "-01-01")))
+
+# Create plotly plot
+distribution_workplaces_fig <- plot_ly(distribution_workplaces_fig, 
+  x = ~Year, 
+  y = ~percentage, 
+  color = ~size,
+  type = 'scatter', 
+  mode = 'lines+markers', 
+  text = ~paste("Year:", format(Year, "%Y"), 
+                "<br>% of all employees:", percentage, 
+                "<br>Workplace size:", size),
+  hoverinfo = 'text'
+) %>%
+  layout(
+    title = "",
+    xaxis = list(
+      title = "",
+      tickformat = "%Y",  # Format to show only the year
+      dtick = "M12",      # Show every year on the x-axis
+      tickmode = "auto"   # Dynamically adjust based on zoom level
+    ),
+    yaxis = list(
+      title = "Percentage of all employees",
+      rangemode = "tozero",  # Ensure the y-axis starts at 0
+      fixedrange = FALSE     # Allow dynamic zooming
+    ),
+    legend = list(
+      orientation = "h", 
+      x = 0.5, 
+      xanchor = "center", 
+      y = -0.2, 
+      yanchor = "top",
+      title = list(text = "Workplace size")
+    ),
+    font = list(
+      family = "Source Sans Pro",  # Use "Source Sans Pro" font throughout
+      size = 12,
+      color = "black"
+    ),
+    shapes = list(
+      list(
+        type = "rect",
+        x0 = "2020-03-23", x1 = "2021-07-19",  # Shaded region start and end dates
+        y0 = 0, y1 = 1,  # Cover the entire y-axis
+        xref = "x", yref = "paper",  # Refer to x as time, y as paper height
+        fillcolor = "lightblue", opacity = 0.3, line = list(width = 0)
+      )
+    ),
+    annotations = list(
+      list(
+        x = "2020-09-23",  # Adjust date based on preferred alignment
+        y = 0.05,  # Set positioning based on proportion of y-axis height
+        text = "COVID-19<br>pandemic",  # Annotation text
+        showarrow = FALSE,  # No arrow pointing to the annotation
+        xref = "x", yref = "paper",  # Reference the x-axis for date, y-axis for height
+        font = list(color = "black", size = 12),
+        align = "left"
+      )
+    )
+  )
+
+# Display the Plotly object
+distribution_workplaces_fig
+```
+
+### Film exhibition
+```{r}
+#| label: tbl-exhibition-workplaces
+#| tbl-cap: "Numbers of employees in film exhibition by size of workplace for the UK, 2023. [Download data](data/IDBR.xlsx)."
+
+# Import data from specific sheet
+exhibition_workplaces <- read_xlsx(here::here("data/IDBR.xlsx"), sheet = "T3", range = cell_rows(2:5))
+
+# Convert decimals to whole numbers
+exhibition_workplaces <- exhibition_workplaces %>%
+  mutate(
+    `% of total workplaces` = `% of total workplaces` * 100,
+    `% of total employees` = `% of total employees` * 100
+    )
+
+# Create the reactable table and add total row as footer, with bold styling
+reactable(
+  exhibition_workplaces, striped = TRUE, highlight = TRUE, compact = TRUE,
+  columns = list(
+    `Workplace size band` = colDef(footer = "Total", format = colFormat(separators = TRUE),
+      footerStyle = list(fontWeight = "bold")),
+    `Number of workplaces in band` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold")),
+    `% of total workplaces` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold")),
+    `Number of employees in band` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold")),
+    `% of total employees` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold")),
+    `Workplace size band` = colDef(footer = function(values) {
+      format(sum(values), big.mark = ",")
+      }, 
+      format = colFormat(separators = TRUE, digits = 0),
+      footerStyle = list(fontWeight = "bold"))
+  )
+)
+```
+
+```{r}
+#| label: fig-exhibition-workplaces
+#| fig-cap: "Film exhibition employees by workplace size band, percentage of total, 2013-2023. [Download data](data/IDBR.xlsx)."
+
+# Import data from specific sheet
+exhibition_workplaces_fig <- read_xlsx(here::here("data/IDBR.xlsx"), sheet = "F3", range = cell_rows(2:13))
+
+# Convert decimals to whole numbers
+exhibition_workplaces_fig <- exhibition_workplaces_fig[1:4] %>%
+  mutate(
+    `50+ employees` = round(`50+ employees` * 100, 0),
+    `11-49 employees` = round(`11-49 employees` * 100, 0),
+    `1-10 employees` = round(`1-10 employees` * 100, 0)
+    )
+
+# Convert data to tidy format and expand date to YEAR-MM-DD format
+exhibition_workplaces_fig <- exhibition_workplaces_fig %>%
+  pivot_longer(!Year, names_to = "size", values_to = "percentage") %>%
+  mutate(Year = as.Date(paste0(Year, "-01-01")))
+
+# Create plotly plot
+exhibition_workplaces_fig <- plot_ly(exhibition_workplaces_fig, 
+  x = ~Year, 
+  y = ~percentage, 
+  color = ~size,
+  type = 'scatter', 
+  mode = 'lines+markers', 
+  text = ~paste("Year:", format(Year, "%Y"), 
+                "<br>% of all employees:", percentage, 
+                "<br>Workplace size:", size),
+  hoverinfo = 'text'
+) %>%
+  layout(
+    title = "",
+    xaxis = list(
+      title = "",
+      tickformat = "%Y",  # Format to show only the year
+      dtick = "M12",      # Show every year on the x-axis
+      tickmode = "auto"   # Dynamically adjust based on zoom level
+    ),
+    yaxis = list(
+      title = "Percentage of all employees",
+      rangemode = "tozero",  # Ensure the y-axis starts at 0
+      fixedrange = FALSE     # Allow dynamic zooming
+    ),
+    legend = list(
+      orientation = "h", 
+      x = 0.5, 
+      xanchor = "center", 
+      y = -0.2, 
+      yanchor = "top",
+      title = list(text = "Workplace size")
+    ),
+    font = list(
+      family = "Source Sans Pro",  # Use "Source Sans Pro" font throughout
+      size = 12,
+      color = "black"
+    ),
+    shapes = list(
+      list(
+        type = "rect",
+        x0 = "2020-03-23", x1 = "2021-07-19",  # Shaded region start and end dates
+        y0 = 0, y1 = 1,  # Cover the entire y-axis
+        xref = "x", yref = "paper",  # Refer to x as time, y as paper height
+        fillcolor = "lightblue", opacity = 0.3, line = list(width = 0)
+      )
+    ),
+    annotations = list(
+      list(
+        x = "2020-09-23",  # Adjust date based on preferred alignment
+        y = 0.05,  # Set positioning based on proportion of y-axis height
+        text = "COVID-19<br>pandemic",  # Annotation text
+        showarrow = FALSE,  # No arrow pointing to the annotation
+        xref = "x", yref = "paper",  # Reference the x-axis for date, y-axis for height
+        font = list(color = "black", size = 12),
+        align = "left"
+      )
+    )
+  )
+
+# Display the Plotly object
+exhibition_workplaces_fig
+```
+
+## Enterprises
+This section reports data from IDBR on enterprises, which are defined by ONS as "an organisational unit producing goods or services that has a certain degree of autonomy in decision making".
+
+```{r}
+# File path and sheet name
+file_path <- here::here("data/IDBR.xlsx")
+sheet_name <- "Regional Data 2015-23"
+
+# Locate functions
+source("code/graph-loop.R", local = knitr::knit_global())
+
+# Prepare the enterprise data
+enterprises <- prepare_enterprise_data(file_path, sheet_name)
+
+# Get the list of sectors (excluding "Total" if needed)
+sectors <- unique(enterprises$Sector)
+# sectors <- sectors[sectors != "Total"]
+
+# Loop over each sector and generate a plot for each
+plots <- lapply(sectors, function(sector) generate_sector_plot(enterprises, sector))
+```
+
+### All film and video enterprises
+```{r}
+#| label: fig-all-enterprises
+#| fig-cap: "All film and video enterprises by UK nation and English region, 2015-2023. [Download data](data/IDBR.xlsx)."
+
+plots[[2]]
+```
+
+### Film production
+```{r}
+#| label: fig-film-production-enterprises
+#| fig-cap: "Film production enterprises (SIC code 59111: Motion picture production activities) by UK nation and English region, 2015-2023. [Download data](data/IDBR.xlsx)."
+
+plots[[1]]
+```
+
+### Video production
+```{r}
+#| label: fig-video-production-enterprises
+#| fig-cap: "Video production enterprises (SIC code 59112: Video production activities) by UK nation and English region, 2015-2023. [Download data](data/IDBR.xlsx)."
+
+plots[[3]]
+```
+
+### Film, video and TV post-production
+```{r}
+#| label: fig-post-production-enterprises
+#| fig-cap: "Film, video and TV post-production enterprises (SIC code 59120: Motion picture, video and tv post-production activities) by UK nation and English region, 2015-2023. [Download data](data/IDBR.xlsx)."
+
+plots[[4]]
+```
+
+### Film distribution
+```{r}
+#| label: fig-film-distribution-enterprises
+#| fig-cap: "Film distribution enterprises (SIC code 59131: Motion picture distribution activities) by UK nation and English region, 2015-2023. [Download data](data/IDBR.xlsx)."
+
+plots[[5]]
+```
+
+### Video distribution
+```{r}
+#| label: fig-video-distribution-enterprises
+#| fig-cap: "Video distribution enterprises (SIC code 59132: Video distribution activities) by UK nation and English region, 2015-2023. [Download data](data/IDBR.xlsx)."
+
+plots[[6]]
+```
+
+### Film exhibition
+```{r}
+#| label: fig-film-exhibition-enterprises
+#| fig-cap: "Film exhibition enterprises (SIC code 59140: Motion picture projection activities) by UK nation and English region, 2015-2023. [Download data](data/IDBR.xlsx)."
+
+plots[[7]]
+```
