@@ -53,11 +53,11 @@ generate_sector_plot <- function(enterprises, sector_name) {
                          mode = 'lines+markers', 
                          text = ~paste("Year:", format(Year, "%Y"),
                                        "<br>Nation/region:", Place, 
-                                       "<br>Count of enterprises:", Values), 
+                                       "<br>Count of enterprises:", format(Values, big.mark = ",", scientific = FALSE)), 
                          hoverinfo = 'text'
   ) %>%
     layout(
-      title = paste(sector_name),  # Dynamic title for each sector
+      # title = paste(sector_name),  # Dynamic title for each sector
       xaxis = list(
         title = "",
         tickformat = "%Y",  # Format to show only the year

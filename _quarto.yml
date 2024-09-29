@@ -3,11 +3,11 @@ project:
   output-dir: docs
 
 website:
-  title: "Employment data"
+  title: "Employment Data Explorer (alpha)"
   image: https://www.bfi.org.uk/dist/client/0207614d447715c2d2b9.svg
   image-alt: Logo of British Film Institute
   open-graph: true
-  repo-url: https://github.com/BFI-Research-and-Statistics-Unit/employment
+  repo-url: https://github.com/BFI-RSU/employment
   repo-actions: [edit, issue]
   navbar:
     background: "#e50076"
@@ -16,7 +16,10 @@ website:
     right:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - href: about.qmd
+        text: About
+      - href: aps-report.qmd
+        text: Employment by Sector
       - href: idbr-report.qmd
         text: Workplaces & Enterprises
 

@@ -1,0 +1,283 @@
+---
+title: "APS employment data report"
+description: Data on film industry employment by sector, collected via the Annual Population Survey. 
+author: "Ian Cade and Brian Tarran"
+date: 09/29/2024
+execute: 
+  echo: false
+  warning: false
+  code-fold: false
+title-block-banner: true
+page-layout: article
+---
+:::{.callout-note collapse="false"}
+## Reports in this series
+::: {.table-responsive}
+| Report title                                  | Source                                                                                                                                    | Date range              | Data publication date | Next data update | RSU analysis date |
+|-----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|-----------------------|------------------|-------------------|
+| [IDBR employment data report](idbr-report.qmd)| [ONS](https://www.ons.gov.uk/aboutus/whatwedo/paidservices/interdepartmentalbusinessregisteridbr)                                         | Year to March 2023      | September 2023        | September 2024   | September 2024    |
+| [APS employment data report](aps-report.qmd)  | [ONS](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/methodologies/annualpopulationsurveyapsqmi)| January to December 2023| August 2024           | TBC              | September 2024    |
+: {.striped .hover}
+:::
+:::
+
+## About this report
+This analysis is based on data from the Annual Population Survey (APS), a continuous household survey covering the UK. Topics covered by the survey include employment and unemployment, as well as housing, ethnicity, religion, health and education.  
+
+### SIC codes used in this analysis
+
+::: {.grid}
+
+::: {.g-col-6}
+**Film and video production:**
+
+* 59111: Motion picture production activities
+* 59112: Video production activities
+* 59120: Motion picture, video and TV post-production activities
+:::
+::: {.g-col-6}
+**Film and video distribution:**
+
+* 59131: Motion picture distribution activities
+* 59132: Video distribution activities
+
+**Film exhibition:**
+
+* 59140: Motion picture projection activities
+:::
+:::
+
+The [About](about.qmd) page contains further details on what activities are included and excluded within each SIC code. 
+
+## Employment by sector
+People in employment include individuals aged 16 or over who undertook paid work (as an employee or self-employed), those who had a job that they were temporarily away from, those on government-supported training and employment programmes, and those doing unpaid family work. Estimates are based on small sample sizes and are therefore subject to a margin of uncertain. Treat with caution. Figures are shown to the nearest 1,000.
+
+```{r}
+#| label: tbl-employment
+#| tbl-cap: "Film industry workforce, 2021-2023. [Download data](data/APS.xlsx)."
+
+# Locate functions
+source("code/tables.R", local = knitr::knit_global())
+
+employment_table <- create_employment_table(here::here("data/APS.xlsx"), "Employment")
+
+employment_table
+```
+
+```{r}
+#| label: fig-employment
+#| fig-cap: "Film industry workforce, 2013-2023. [Download data](data/APS.xlsx)."
+
+# Install packages
+library(dplyr)
+library(readxl)
+library(here)
+library(plotly)
+
+# Import data
+employment <- read_xlsx(here::here("data/APS.xlsx"), "Employment", skip = 1) %>%
+  mutate(across(everything(), as.numeric)) %>%
+  pivot_longer(
+    !Year,
+    names_to = "Sector",
+    values_to = "Employment")
+
+# Filter out self-employed and drop NA values
+employment_figure1 <- employment %>%
+  filter(
+    Sector != "Film and video production self-employed") %>%
+  drop_na(Year, Employment) %>%
+  mutate(Year = as.Date(paste0(Year, "-01-01")))
+
+# Create plotly plot
+employment_figure1 <- plot_ly(employment_figure1, 
+  x = ~Year, 
+  y = ~Employment, 
+  color = ~Sector,
+  type = 'scatter', 
+  mode = 'lines+markers', 
+  text = ~paste("Year:", format(Year, "%Y"), 
+                "<br>Sector:", Sector, 
+                "<br>Workforce size:", format(Employment, big.mark = ",", scientific = FALSE)),
+  hoverinfo = 'text'
+) %>%
+  layout(
+    title = "",
+    xaxis = list(
+      title = "",
+      tickformat = "%Y",  # Format to show only the year
+      dtick = "M12",      # Show every year on the x-axis
+      tickmode = "auto"   # Dynamically adjust based on zoom level
+    ),
+    yaxis = list(
+      title = "Number in employment",
+      rangemode = "tozero",  # Ensure the y-axis starts at 0
+      fixedrange = FALSE     # Allow dynamic zooming
+    ),
+    legend = list(
+      orientation = "h", 
+      x = 0.5, 
+      xanchor = "center", 
+      y = -0.2, 
+      yanchor = "top",
+      title = list(text = "Sector")
+    ),
+    font = list(
+      family = "Source Sans Pro",  # Use "Source Sans Pro" font throughout
+      size = 12,
+      color = "black"
+    ),
+    shapes = list(
+      list(
+        type = "rect",
+        x0 = "2020-03-23", x1 = "2021-07-19",  # Shaded region start and end dates
+        y0 = 0, y1 = 1,  # Cover the entire y-axis
+        xref = "x", yref = "paper",  # Refer to x as time, y as paper height
+        fillcolor = "lightblue", opacity = 0.3, line = list(width = 0)
+      )
+    ),
+    annotations = list(
+      list(
+        x = "2020-09-23",  # Adjust date based on preferred alignment
+        y = 0.05,  # Set positioning based on proportion of y-axis height
+        text = "COVID-19<br>pandemic",  # Annotation text
+        showarrow = FALSE,  # No arrow pointing to the annotation
+        xref = "x", yref = "paper",  # Reference the x-axis for date, y-axis for height
+        font = list(color = "black", size = 12),
+        align = "left"
+      )
+    )
+  )
+
+# Display the Plotly object
+employment_figure1
+```
+
+@tbl-self-employed shows the number and percentage of self-employed workers in the film and video production workforce. Numbers in employment are shown to the nearest 1,000. Due to low sample sizes, there are no reliable estimates for self-employed workers in the distribution and exhibition sectors.
+
+```{r}
+#| label: tbl-self-employed
+#| tbl-cap: "Film and video production workforce, total employed and self-employed, 2014-2024. [Download data](data/APS.xlsx)."
+
+employment_table2 <- employment %>%
+  pivot_wider(
+    names_from = Sector,
+    values_from = Employment) %>%
+  select(-`Film and video distribution`, -`Film exhibition`, -`Total`) %>%
+  drop_na(`Film and video production self-employed`) %>%
+  mutate(
+  `Percentage self-employed` = round(
+    `Film and video production self-employed` / `Film and video production` * 100, 0)
+  )
+
+reactable(
+  employment_table2, striped = TRUE, highlight = TRUE, compact = TRUE,
+  columns = list(
+    `Film and video production` = colDef(
+      format = colFormat(
+        separators = TRUE, digits = 0)
+      ),
+    `Film and video production self-employed` = colDef(
+      format = colFormat(
+        separators = TRUE, digits = 0)
+      ),
+    `Percentage self-employed` = colDef(
+      format = colFormat(
+        suffix = "%", 
+        digits = 0)
+      )
+    )
+  )
+```
+
+## Employment by location
+In 2023, an estimated 41% of the film and video production workforce was based in London and the South East.^[The South East region wraps around London so includes the major studios to the west of the city.] This compares with 29% for the UK workforce as a whole (@fig-employment-location).
+
+::: {.callout-warning collapse="false"}
+## Sample size and data coverage 
+
+Film and video production workforce estimates by region should be treated with caution as employment estimates by region are not available for many areas including:
+
+* Inner London (for employees) 
+* Central London and Outer London (for self-employed workers)
+
+Estimates are not available due to small sample sizes. Sample size may also explain, at least in part, the variation in the percentage of London and South East employment in the film and video production sector over the past decade, as seen in @fig-employment-location.
+:::
+
+```{r}
+#| label: fig-employment-location
+#| fig-cap: "London and South East percentage share of film and video production workforce and total UK workforce, 2013-2023. [Download data](data/APS.xlsx)."
+
+
+# Import data
+employment_location <- read_xlsx(here::here("data/APS.xlsx"), "Employment by region", skip = 1) %>%
+  mutate(across(everything(), as.numeric)) %>%
+  pivot_longer(
+    !Year,
+    names_to = "Sector",
+    values_to = "Percentage") %>%
+  mutate(Year = as.Date(paste0(Year, "-01-01")))
+
+# Create plotly plot
+employment_location <- plot_ly(employment_location, 
+  x = ~Year, 
+  y = ~Percentage, 
+  color = ~Sector,
+  type = 'scatter', 
+  mode = 'lines+markers', 
+  text = ~paste("Year:", format(Year, "%Y"), 
+                "<br>Sector:", Sector, 
+                "<br>Based in London and South East:", paste0(round(Percentage, 0), "%")),
+  hoverinfo = 'text'
+) %>%
+  layout(
+    title = "",
+    xaxis = list(
+      title = "",
+      tickformat = "%Y",  # Format to show only the year
+      dtick = "M12",      # Show every year on the x-axis
+      tickmode = "auto"   # Dynamically adjust based on zoom level
+    ),
+    yaxis = list(
+      title = "Percentage based in London and South East",
+      rangemode = "tozero",  # Ensure the y-axis starts at 0
+      fixedrange = FALSE     # Allow dynamic zooming
+    ),
+    legend = list(
+      orientation = "h", 
+      x = 0.5, 
+      xanchor = "center", 
+      y = -0.2, 
+      yanchor = "top",
+      title = list(text = "Sector")
+    ),
+    font = list(
+      family = "Source Sans Pro",  # Use "Source Sans Pro" font throughout
+      size = 12,
+      color = "black"
+    ),
+    shapes = list(
+      list(
+        type = "rect",
+        x0 = "2020-03-23", x1 = "2021-07-19",  # Shaded region start and end dates
+        y0 = 0, y1 = 1,  # Cover the entire y-axis
+        xref = "x", yref = "paper",  # Refer to x as time, y as paper height
+        fillcolor = "lightblue", opacity = 0.3, line = list(width = 0)
+      )
+    ),
+    annotations = list(
+      list(
+        x = "2020-09-23",  # Adjust date based on preferred alignment
+        y = 0.05,  # Set positioning based on proportion of y-axis height
+        text = "COVID-19<br>pandemic",  # Annotation text
+        showarrow = FALSE,  # No arrow pointing to the annotation
+        xref = "x", yref = "paper",  # Reference the x-axis for date, y-axis for height
+        font = list(color = "black", size = 12),
+        align = "left"
+      )
+    )
+  )
+
+# Display the Plotly object
+employment_location
+```
