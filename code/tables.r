@@ -1,3 +1,5 @@
+# Code for generating Table 1 in the APS report
+
 library(readxl)
 library(dplyr)
 library(tidyr)
@@ -14,7 +16,7 @@ create_employment_table <- function(file_path, sheet_name) {
       values_to = "Employment"
     )
 
-  # Prep data for Table 1
+  # Prep data for Table 1, pivot wider and filter out NAs and unnecessary Sectors
   employment_table1 <- employment %>%
     pivot_wider(
       names_from = Year,
