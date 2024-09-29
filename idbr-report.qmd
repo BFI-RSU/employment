@@ -12,12 +12,13 @@ page-layout: article
 ---
 :::{.callout-note collapse="false"}
 ## Reports in this series
-| Report title                                          | Source                                                                                            | Date range         | Data publication date | Next data update | RSU analysis date |
-|-------------------------------------------------------|---------------------------------------------------------------------------------------------------|--------------------|-----------------------|------------------|-------------------|
-| [IDBR employment report](idbr-report.qmd)             | [ONS](https://www.ons.gov.uk/aboutus/whatwedo/paidservices/interdepartmentalbusinessregisteridbr) | Year to March 2023 | September 2023        | September 2024   | September 2024    |
-| APS                                                   | APS                                                                                               |                    |                       |                  |                   |
-
+::: {.table-responsive}
+| Report title                                  | Source                                                                                                                                    | Date range              | Data publication date | Next data update | RSU analysis date |
+|-----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|-----------------------|------------------|-------------------|
+| [IDBR employment data report](idbr-report.qmd)| [ONS](https://www.ons.gov.uk/aboutus/whatwedo/paidservices/interdepartmentalbusinessregisteridbr)                                         | Year to March 2023      | September 2023        | September 2024   | September 2024    |
+| [APS employment data report](aps-report.qmd)  | [ONS](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/methodologies/annualpopulationsurveyapsqmi)| January to December 2023| August 2024           | TBC              | September 2024    |
 : {.striped .hover}
+:::
 :::
 
 ## About this report
@@ -32,7 +33,7 @@ This analysis is based on data from the Inter-Departmental Business Register (ID
 
 * 59111: Motion picture production activities
 * 59112: Video production activities
-* 59120: Motion picture, video and tv post-production activities
+* 59120: Motion picture, video and TV post-production activities
 :::
 ::: {.g-col-6}
 **Film and video distribution:**
@@ -495,7 +496,7 @@ plots[[3]]
 ### Film, video and TV post-production
 ```{r}
 #| label: fig-post-production-enterprises
-#| fig-cap: "Film, video and TV post-production enterprises (SIC code 59120: Motion picture, video and tv post-production activities) by UK nation and English region, 2015-2023. [Download data](data/IDBR.xlsx)."
+#| fig-cap: "Film, video and TV post-production enterprises (SIC code 59120: Motion picture, video and TV post-production activities) by UK nation and English region, 2015-2023. [Download data](data/IDBR.xlsx)."
 
 plots[[4]]
 ```

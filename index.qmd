@@ -1,7 +1,5 @@
 ---
-title: "Employment"
+title: "Employment Data Explorer (alpha)"
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Site under development by the [BFI Research and Statistics Unit](https://www.bfi.org.uk/industry-data-insights/). Contact us at [rsu-enquiries@bfi.org.uk](mailto:rsu-enquiries@bfi.org.uk).

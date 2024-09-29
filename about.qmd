@@ -1,5 +1,110 @@
 ---
-title: "About"
+title: "About this site"
 ---
 
-About this site
+Welcome to the [BFI Research and Statistics Unit's](https://www.bfi.org.uk/industry-data-insights/) 'Employment Data Explorer' (alpha release). Here you will find two reports containing analyses and visualisations of film industry workforce information, drawn from data collected and published by the Office for National Statistics.
+
+Data comes from two sources:
+
+* [The Inter-Departmental Business Register (IDBR)](idbr-report.qmd)
+* [The Annual Population Survey (APS)](aps-report.qmd)
+
+Both sources rely on SIC codes -- the [UK Standard Industrial Classification of Economic Activities](https://www.ons.gov.uk/methodology/classificationsandstandards/ukstandardindustrialclassificationofeconomicactivities/uksic2007) -- to extract information about the film industry workforce. The relevant SIC codes, and details of what they include and exclude, are given below:
+
+#### Film and video production:
+
+:::{.callout-note collapse="true"} 
+## 59111: Motion picture production activities
+This subclass includes:
+
+* production of motion pictures
+
+This subclass excludes:
+
+* film duplicating (except reproduction of motion picture film for theatrical distribution) from master copies
+* post-production activities
+* sound recording and recording of books on tape
+* film processing other than for the motion picture industry
+* activities of personal theatrical or artistic agents or agencies
+* activities of own account actors, cartoonists, directors, stage designers and technical specialists
+:::
+:::{.callout-note collapse="true"} 
+## 59112: Video production activities
+This subclass includes:
+
+* production of videos
+
+This subclass excludes:
+
+* audio and video tape, CD or DVD reproduction from master copies
+* wholesale of recorded video tapes, CDs, DVDs
+* wholesale of blank video tapes, CDs
+* retail trade of video tapes, CDs, DVDs
+* renting of video tapes, DVDs to the general public
+* post-production activities
+* sound recording and recording of books on tape
+* activities of personal theatrical or artistic agents or agencies
+* activities of own account actors, cartoonists, directors, stage designers and technical specialists
+:::
+:::{.callout-note collapse="true"} 
+## 59120: Motion picture, video and TV post-production activities
+This class includes post-production activities such as editing, film/tape transfers, titling, subtitling, credits, closed captioning, computer-produced graphics, animation and special effects, developing and processing motion picture film, as well as activities of motion picture film laboratories and activities of special laboratories for animated films.
+
+This class also includes:
+
+* the activities of stock footage film libraries, etc.
+
+This class excludes:
+
+* film duplicating (except reproduction of motion picture film for theatrical distribution) as well as audio and video tape, CD or DVD reproduction from master copies
+* wholesale of recorded video tapes, CDs, DVDs
+* wholesale of blank video tapes, CDs
+* retail trade of video tapes, CDs, DVDs
+* film processing other than for the motion picture industry
+* renting of video tapes, DVDs to the general public
+* activities of own account actors, cartoonists, directors, stage designers and technical specialists
+:::
+
+#### Film and video distribution:
+
+:::{.callout-note collapse="true"} 
+## 59131: Motion picture distribution activities
+This subclass includes:
+
+* distributing film to motion picture theatres, television networks and stations, and exhibitors
+
+This subclass also includes:
+
+* acquiring film distribution rights
+
+This subclass excludes:
+
+* film duplicating from master copies
+:::
+:::{.callout-note collapse="true"} 
+## 59132: Video distribution activities
+This subclass includes:
+
+* distributing video tapes, DVDs and similar productions to motion picture theatres, television networks and stations, and exhibitors
+
+This subclass also includes:
+
+* acquiring video tape and DVD distribution rights
+
+This subclass excludes:
+
+* audio and video tape, CD or DVD reproduction from master copies
+* wholesale of recorded video tapes and DVDs
+* retail sale of recorded video tapes and DVDs
+:::
+
+#### Film exhibition:
+
+:::{.callout-note collapse="true"} 
+## 59140: Motion picture projection activities
+This class includes:
+
+* activities of motion picture or video tape projection in cinemas, in the open air or in other projection facilities
+* activities of cine-clubs
+:::
+ 
