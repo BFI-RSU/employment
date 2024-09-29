@@ -133,7 +133,7 @@ production_workplaces_fig <- plot_ly(production_workplaces_fig,
   mode = 'lines+markers', 
   text = ~paste("Year:", format(Year, "%Y"), 
                 "<br>Workplace size:", size,
-                "<br>% of total employees:", percentage),
+                "<br>Percentage of total employees:", paste0(percentage, "%")),
   hoverinfo = 'text'
 ) %>%
   layout(
@@ -262,7 +262,7 @@ distribution_workplaces_fig <- plot_ly(distribution_workplaces_fig,
   mode = 'lines+markers', 
   text = ~paste("Year:", format(Year, "%Y"), 
                 "<br>Workplace size:", size,
-                "<br>% of total employees:", percentage),
+                "<br>Percentage of total employees:", paste0(percentage, "%")),
   hoverinfo = 'text'
 ) %>%
   layout(
@@ -391,7 +391,7 @@ exhibition_workplaces_fig <- plot_ly(exhibition_workplaces_fig,
   mode = 'lines+markers', 
   text = ~paste("Year:", format(Year, "%Y"), 
                 "<br>Workplace size:", size,
-                "<br>% of total employees:", percentage),
+                "<br>Percentage of total employees:", paste0(percentage, "%")),
   hoverinfo = 'text'
 ) %>%
   layout(
