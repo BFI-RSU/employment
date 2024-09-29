@@ -53,7 +53,7 @@ generate_sector_plot <- function(enterprises, sector_name) {
                          mode = 'lines+markers', 
                          text = ~paste("Year:", format(Year, "%Y"),
                                        "<br>Nation/region:", Place, 
-                                       "<br>Count of enterprises:", Values), 
+                                       "<br>Count of enterprises:", format(Values, big.mark = ",", scientific = FALSE)), 
                          hoverinfo = 'text'
   ) %>%
     layout(

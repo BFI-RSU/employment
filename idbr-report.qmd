@@ -63,9 +63,6 @@ library(here)
 library(reactable)
 library(tidyverse)
 library(plotly)
-library(ggplot2)
-library(plotly)
-library(tidyr)
 
 # Import data from specific sheet
 production_workplaces <- read_xlsx(here::here("data/IDBR.xlsx"), sheet = "T1", range = cell_rows(2:5))
