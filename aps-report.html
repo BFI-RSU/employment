@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ian Cade and Brian Tarran">
+<meta name="dcterms.date" content="2024-09-29">
+<meta name="description" content="Data on film industry employment by sector, collected via the Annual Population Survey.">
+
+<title>Employment Data Explorer (alpha) - APS employment data report</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="site_libs/react-18.2.0/react.min.js"></script>
+<script src="site_libs/react-18.2.0/react-dom.min.js"></script>
+<script src="site_libs/reactwidget-2.0.0/react-tools.js"></script>
+<script src="site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+<link href="site_libs/reactable-0.4.4/reactable.css" rel="stylesheet">
+<script src="site_libs/reactable-binding-0.4.4/reactable.js"></script>
+<script src="site_libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Employment Data Explorer (alpha) - APS employment data report">
+<meta property="og:description" content="Data on film industry employment by sector, collected via the Annual Population Survey.">
+<meta property="og:image" content="https://www.bfi.org.uk/dist/client/0207614d447715c2d2b9.svg">
+<meta property="og:site_name" content="Employment Data Explorer (alpha)">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="https://www.bfi.org.uk/dist/client/0207614d447715c2d2b9.svg" alt="Logo of British Film Institute" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Employment Data Explorer (alpha)</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./aps-report.html" aria-current="page"> 
+<span class="menu-text">Employment by Sector</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./idbr-report.html"> 
+<span class="menu-text">Workplaces &amp; Enterprises</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">APS employment data report</h1>
+                  <div>
+        <div class="description">
+          Data on film industry employment by sector, collected via the Annual Population Survey.
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ian Cade and Brian Tarran </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 29, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#about-this-report" id="toc-about-this-report" class="nav-link active" data-scroll-target="#about-this-report">About this report</a>
+  <ul class="collapse">
+  <li><a href="#sic-codes-used-in-this-analysis" id="toc-sic-codes-used-in-this-analysis" class="nav-link" data-scroll-target="#sic-codes-used-in-this-analysis">SIC codes used in this analysis</a></li>
+  </ul></li>
+  <li><a href="#employment-by-sector" id="toc-employment-by-sector" class="nav-link" data-scroll-target="#employment-by-sector">Employment by sector</a></li>
+  <li><a href="#employment-by-location" id="toc-employment-by-location" class="nav-link" data-scroll-target="#employment-by-location">Employment by location</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/BFI-RSU/employment/edit/main/aps-report.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/BFI-RSU/employment/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reports in this series
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="table-responsive">
+<table class="table-striped table-hover table">
+<thead>
+<tr class="header">
+<th>Report title</th>
+<th>Source</th>
+<th>Date range</th>
+<th>Data publication date</th>
+<th>Next data update</th>
+<th>RSU analysis date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="./idbr-report.html">IDBR employment data report</a></td>
+<td><a href="https://www.ons.gov.uk/aboutus/whatwedo/paidservices/interdepartmentalbusinessregisteridbr">ONS</a></td>
+<td>Year to March 2023</td>
+<td>September 2023</td>
+<td>September 2024</td>
+<td>September 2024</td>
+</tr>
+<tr class="even">
+<td><a href="./aps-report.html">APS employment data report</a></td>
+<td><a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/methodologies/annualpopulationsurveyapsqmi">ONS</a></td>
+<td>January to December 2023</td>
+<td>August 2024</td>
+<td>TBC</td>
+<td>September 2024</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<section id="about-this-report" class="level2">
+<h2 class="anchored" data-anchor-id="about-this-report">About this report</h2>
+<p>This analysis is based on data from the Annual Population Survey (APS), a continuous household survey covering the UK. Topics covered by the survey include employment and unemployment, as well as housing, ethnicity, religion, health and education.</p>
+<section id="sic-codes-used-in-this-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="sic-codes-used-in-this-analysis">SIC codes used in this analysis</h3>
+<div class="grid">
+<div class="g-col-6">
+<p><strong>Film and video production:</strong></p>
+<ul>
+<li>59111: Motion picture production activities</li>
+<li>59112: Video production activities</li>
+<li>59120: Motion picture, video and TV post-production activities</li>
+</ul>
+</div>
+<div class="g-col-6">
+<p><strong>Film and video distribution:</strong></p>
+<ul>
+<li>59131: Motion picture distribution activities</li>
+<li>59132: Video distribution activities</li>
+</ul>
+<p><strong>Film exhibition:</strong></p>
+<ul>
+<li>59140: Motion picture projection activities</li>
+</ul>
+</div>
+</div>
+<p>The <a href="./about.html">About</a> page contains further details on what activities are included and excluded within each SIC code.</p>
+</section>
+</section>
+<section id="employment-by-sector" class="level2">
+<h2 class="anchored" data-anchor-id="employment-by-sector">Employment by sector</h2>
+<p>People in employment include individuals aged 16 or over who undertook paid work (as an employee or self-employed), those who had a job that they were temporarily away from, those on government-supported training and employment programmes, and those doing unpaid family work. Estimates are based on small sample sizes and are therefore subject to a margin of uncertain. Treat with caution. Figures are shown to the nearest 1,000.</p>
+<div class="cell">
+<div id="tbl-employment" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-employment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Film industry workforce, 2021-2023. <a href="data/APS.xlsx">Download data</a>.
+</figcaption>
+<div aria-describedby="tbl-employment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-c4c4ef2578b40c39df53" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c4c4ef2578b40c39df53">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Sector":["Film and video production","Film and video distribution","Film exhibition"],"2021":[85000,7000,14000],"2022":[80000,6000,13000],"2023":[73000,4000,13000]},"columns":[{"id":"Sector","name":"Sector","type":"character","format":{"cell":{"separators":true},"aggregated":{"separators":true}},"footer":"Total","footerStyle":{"fontWeight":"bold"}},{"id":"2021","name":"2021","type":"numeric","format":{"cell":{"digits":0,"separators":true},"aggregated":{"digits":0,"separators":true}},"footer":"106,000","footerStyle":{"fontWeight":"bold"}},{"id":"2022","name":"2022","type":"numeric","format":{"cell":{"digits":0,"separators":true},"aggregated":{"digits":0,"separators":true}},"footer":"99,000","footerStyle":{"fontWeight":"bold"}},{"id":"2023","name":"2023","type":"numeric","format":{"cell":{"digits":0,"separators":true},"aggregated":{"digits":0,"separators":true}},"footer":"90,000","footerStyle":{"fontWeight":"bold"}}],"highlight":true,"striped":true,"compact":true,"dataKey":"5fc3ac1a35ce48a72daaaa3ac7c4b0a9"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell">
+<div id="fig-employment" class="cell-output-display quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-employment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-cfbeaf9750c166f82858" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-cfbeaf9750c166f82858">{"x":{"visdat":{"2fb83cce5301":["function () ","plotlyVisDat"]},"cur_data":"2fb83cce5301","attrs":{"2fb83cce5301":{"x":{},"y":{},"mode":"lines+markers","text":{},"hoverinfo":"text","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"","xaxis":{"domain":[0,1],"automargin":true,"title":"","tickformat":"%Y","dtick":"M12","tickmode":"auto"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Number in employment","rangemode":"tozero","fixedrange":false},"legend":{"orientation":"h","x":0.5,"xanchor":"center","y":-0.2,"yanchor":"top","title":{"text":"Sector"}},"font":{"family":"Source Sans Pro","size":12,"color":"black"},"shapes":[{"type":"rect","x0":"2020-03-23","x1":"2021-07-19","y0":0,"y1":1,"xref":"x","yref":"paper","fillcolor":"lightblue","opacity":0.3,"line":{"width":0}}],"annotations":[{"x":"2020-09-23","y":0.05,"text":"COVID-19<br>pandemic","showarrow":false,"xref":"x","yref":"paper","font":{"color":"black","size":12},"align":"left"}],"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["2013-01-01","2014-01-01","2015-01-01","2016-01-01","2017-01-01","2018-01-01","2019-01-01","2020-01-01","2021-01-01","2022-01-01","2023-01-01"],"y":[7000,4000,6000,7000,7000,4000,3000,4000,7000,6000,4000],"mode":"lines+markers","text":["Year: 2013 <br>Sector: Film and video distribution <br>Workforce size:   7,000","Year: 2014 <br>Sector: Film and video distribution <br>Workforce size:   4,000","Year: 2015 <br>Sector: Film and video distribution <br>Workforce size:   6,000","Year: 2016 <br>Sector: Film and video distribution <br>Workforce size:   7,000","Year: 2017 <br>Sector: Film and video distribution <br>Workforce size:   7,000","Year: 2018 <br>Sector: Film and video distribution <br>Workforce size:   4,000","Year: 2019 <br>Sector: Film and video distribution <br>Workforce size:   3,000","Year: 2020 <br>Sector: Film and video distribution <br>Workforce size:   4,000","Year: 2021 <br>Sector: Film and video distribution <br>Workforce size:   7,000","Year: 2022 <br>Sector: Film and video distribution <br>Workforce size:   6,000","Year: 2023 <br>Sector: Film and video distribution <br>Workforce size:   4,000"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text"],"type":"scatter","name":"Film and video distribution","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2013-01-01","2014-01-01","2015-01-01","2016-01-01","2017-01-01","2018-01-01","2019-01-01","2020-01-01","2021-01-01","2022-01-01","2023-01-01"],"y":[49000,47000,48000,55000,64000,69000,66000,66000,85000,80000,73000],"mode":"lines+markers","text":["Year: 2013 <br>Sector: Film and video production <br>Workforce size:  49,000","Year: 2014 <br>Sector: Film and video production <br>Workforce size:  47,000","Year: 2015 <br>Sector: Film and video production <br>Workforce size:  48,000","Year: 2016 <br>Sector: Film and video production <br>Workforce size:  55,000","Year: 2017 <br>Sector: Film and video production <br>Workforce size:  64,000","Year: 2018 <br>Sector: Film and video production <br>Workforce size:  69,000","Year: 2019 <br>Sector: Film and video production <br>Workforce size:  66,000","Year: 2020 <br>Sector: Film and video production <br>Workforce size:  66,000","Year: 2021 <br>Sector: Film and video production <br>Workforce size:  85,000","Year: 2022 <br>Sector: Film and video production <br>Workforce size:  80,000","Year: 2023 <br>Sector: Film and video production <br>Workforce size:  73,000"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text"],"type":"scatter","name":"Film and video production","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2013-01-01","2014-01-01","2015-01-01","2016-01-01","2017-01-01","2018-01-01","2019-01-01","2020-01-01","2021-01-01","2022-01-01","2023-01-01"],"y":[17000,15000,13000,17000,17000,18000,15000,16000,14000,13000,13000],"mode":"lines+markers","text":["Year: 2013 <br>Sector: Film exhibition <br>Workforce size:  17,000","Year: 2014 <br>Sector: Film exhibition <br>Workforce size:  15,000","Year: 2015 <br>Sector: Film exhibition <br>Workforce size:  13,000","Year: 2016 <br>Sector: Film exhibition <br>Workforce size:  17,000","Year: 2017 <br>Sector: Film exhibition <br>Workforce size:  17,000","Year: 2018 <br>Sector: Film exhibition <br>Workforce size:  18,000","Year: 2019 <br>Sector: Film exhibition <br>Workforce size:  15,000","Year: 2020 <br>Sector: Film exhibition <br>Workforce size:  16,000","Year: 2021 <br>Sector: Film exhibition <br>Workforce size:  14,000","Year: 2022 <br>Sector: Film exhibition <br>Workforce size:  13,000","Year: 2023 <br>Sector: Film exhibition <br>Workforce size:  13,000"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text"],"type":"scatter","name":"Film exhibition","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2013-01-01","2014-01-01","2015-01-01","2016-01-01","2017-01-01","2018-01-01","2019-01-01","2020-01-01","2021-01-01","2022-01-01","2023-01-01"],"y":[73000,66000,67000,79000,88000,91000,84000,86000,106000,99000,90000],"mode":"lines+markers","text":["Year: 2013 <br>Sector: Total <br>Workforce size:  73,000","Year: 2014 <br>Sector: Total <br>Workforce size:  66,000","Year: 2015 <br>Sector: Total <br>Workforce size:  67,000","Year: 2016 <br>Sector: Total <br>Workforce size:  79,000","Year: 2017 <br>Sector: Total <br>Workforce size:  88,000","Year: 2018 <br>Sector: Total <br>Workforce size:  91,000","Year: 2019 <br>Sector: Total <br>Workforce size:  84,000","Year: 2020 <br>Sector: Total <br>Workforce size:  86,000","Year: 2021 <br>Sector: Total <br>Workforce size: 106,000","Year: 2022 <br>Sector: Total <br>Workforce size:  99,000","Year: 2023 <br>Sector: Total <br>Workforce size:  90,000"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text"],"type":"scatter","name":"Total","marker":{"color":"rgba(231,138,195,1)","line":{"color":"rgba(231,138,195,1)"}},"textfont":{"color":"rgba(231,138,195,1)"},"error_y":{"color":"rgba(231,138,195,1)"},"error_x":{"color":"rgba(231,138,195,1)"},"line":{"color":"rgba(231,138,195,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-employment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Film industry workforce, 2013-2023. <a href="data/APS.xlsx">Download data</a>.
+</figcaption>
+</figure>
+</div>
+</div>
+<p><a href="#tbl-self-employed" class="quarto-xref">Table&nbsp;2</a> shows the number and percentage of self-employed workers in the film and video production workforce. Numbers in employment are shown to the nearest 1,000. Due to low sample sizes, there are no reliable estimates for self-employed workers in the distribution and exhibition sectors.</p>
+<div class="cell">
+<div id="tbl-self-employed" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-self-employed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Film and video production workforce, total employed and self-employed, 2014-2024. <a href="data/APS.xlsx">Download data</a>.
+</figcaption>
+<div aria-describedby="tbl-self-employed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-c4c20740f7566265c061" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c4c20740f7566265c061">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Year":[2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],"Film and video production":[47000,48000,55000,64000,69000,66000,66000,85000,80000,73000],"Film and video production self-employed":[28000,24000,27000,32000,31000,36000,32000,37000,42000,41000],"Percentage self-employed":[60,50,49,50,45,55,48,44,52,56]},"columns":[{"id":"Year","name":"Year","type":"numeric"},{"id":"Film and video production","name":"Film and video production","type":"numeric","format":{"cell":{"digits":0,"separators":true},"aggregated":{"digits":0,"separators":true}}},{"id":"Film and video production self-employed","name":"Film and video production self-employed","type":"numeric","format":{"cell":{"digits":0,"separators":true},"aggregated":{"digits":0,"separators":true}}},{"id":"Percentage self-employed","name":"Percentage self-employed","type":"numeric","format":{"cell":{"suffix":"%","digits":0},"aggregated":{"suffix":"%","digits":0}}}],"highlight":true,"striped":true,"compact":true,"dataKey":"debd2aead862a26fc00cf109b2d67c26"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="employment-by-location" class="level2">
+<h2 class="anchored" data-anchor-id="employment-by-location">Employment by location</h2>
+<p>In 2023, an estimated 41% of the film and video production workforce was based in London and the South East.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> This compares with 29% for the UK workforce as a whole (<a href="#fig-employment-location" class="quarto-xref">Figure&nbsp;2</a>).</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Sample size and data coverage
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Film and video production workforce estimates by region should be treated with caution as employment estimates by region are not available for many areas including:</p>
+<ul>
+<li>Inner London (for employees)</li>
+<li>Central London and Outer London (for self-employed workers)</li>
+</ul>
+<p>Estimates are not available due to small sample sizes. Sample size may also explain, at least in part, the variation in the percentage of London and South East employment in the film and video production sector over the past decade, as seen in <a href="#fig-employment-location" class="quarto-xref">Figure&nbsp;2</a>.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div id="fig-employment-location" class="cell-output-display quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-employment-location-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3b13bb312aad51845652" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-3b13bb312aad51845652">{"x":{"visdat":{"2fb840aa6547":["function () ","plotlyVisDat"]},"cur_data":"2fb840aa6547","attrs":{"2fb840aa6547":{"x":{},"y":{},"mode":"lines+markers","text":{},"hoverinfo":"text","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"","xaxis":{"domain":[0,1],"automargin":true,"title":"","tickformat":"%Y","dtick":"M12","tickmode":"auto"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Percentage based in London and South East","rangemode":"tozero","fixedrange":false},"legend":{"orientation":"h","x":0.5,"xanchor":"center","y":-0.2,"yanchor":"top","title":{"text":"Sector"}},"font":{"family":"Source Sans Pro","size":12,"color":"black"},"shapes":[{"type":"rect","x0":"2020-03-23","x1":"2021-07-19","y0":0,"y1":1,"xref":"x","yref":"paper","fillcolor":"lightblue","opacity":0.3,"line":{"width":0}}],"annotations":[{"x":"2020-09-23","y":0.05,"text":"COVID-19<br>pandemic","showarrow":false,"xref":"x","yref":"paper","font":{"color":"black","size":12},"align":"left"}],"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["2013-01-01","2014-01-01","2015-01-01","2016-01-01","2017-01-01","2018-01-01","2019-01-01","2020-01-01","2021-01-01","2022-01-01","2023-01-01"],"y":[72.4,70.2,65.5,56.8,64,60.9,69.9,57.1,59.6,55,40.8310340567475],"mode":"lines+markers","text":["Year: 2013 <br>Sector: Film and video production <br>Based in London and South East: 72%","Year: 2014 <br>Sector: Film and video production <br>Based in London and South East: 70%","Year: 2015 <br>Sector: Film and video production <br>Based in London and South East: 66%","Year: 2016 <br>Sector: Film and video production <br>Based in London and South East: 57%","Year: 2017 <br>Sector: Film and video production <br>Based in London and South East: 64%","Year: 2018 <br>Sector: Film and video production <br>Based in London and South East: 61%","Year: 2019 <br>Sector: Film and video production <br>Based in London and South East: 70%","Year: 2020 <br>Sector: Film and video production <br>Based in London and South East: 57%","Year: 2021 <br>Sector: Film and video production <br>Based in London and South East: 60%","Year: 2022 <br>Sector: Film and video production <br>Based in London and South East: 55%","Year: 2023 <br>Sector: Film and video production <br>Based in London and South East: 41%"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text"],"type":"scatter","name":"Film and video production","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2013-01-01","2014-01-01","2015-01-01","2016-01-01","2017-01-01","2018-01-01","2019-01-01","2020-01-01","2021-01-01","2022-01-01","2023-01-01"],"y":[29.1,29.3,29.2,30,30,29.4,29.7,30,29.9,29.6,29.4543695980844],"mode":"lines+markers","text":["Year: 2013 <br>Sector: UK all industries <br>Based in London and South East: 29%","Year: 2014 <br>Sector: UK all industries <br>Based in London and South East: 29%","Year: 2015 <br>Sector: UK all industries <br>Based in London and South East: 29%","Year: 2016 <br>Sector: UK all industries <br>Based in London and South East: 30%","Year: 2017 <br>Sector: UK all industries <br>Based in London and South East: 30%","Year: 2018 <br>Sector: UK all industries <br>Based in London and South East: 29%","Year: 2019 <br>Sector: UK all industries <br>Based in London and South East: 30%","Year: 2020 <br>Sector: UK all industries <br>Based in London and South East: 30%","Year: 2021 <br>Sector: UK all industries <br>Based in London and South East: 30%","Year: 2022 <br>Sector: UK all industries <br>Based in London and South East: 30%","Year: 2023 <br>Sector: UK all industries <br>Based in London and South East: 29%"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text"],"type":"scatter","name":"UK all industries","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-employment-location-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: London and South East percentage share of film and video production workforce and total UK workforce, 2013-2023. <a href="data/APS.xlsx">Download data</a>.
+</figcaption>
+</figure>
+</div>
+</div>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The South East region wraps around London so includes the major studios to the west of the city.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/BFI-RSU/employment/edit/main/aps-report.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/BFI-RSU/employment/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
