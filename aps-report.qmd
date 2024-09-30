@@ -191,18 +191,8 @@ reactable(
 ```
 
 ## Employment by location
-In 2023, an estimated 41% of the film and video production workforce was based in London and the South East.^[The South East region wraps around London so includes the major studios to the west of the city.] This compares with 29% for the UK workforce as a whole (@fig-employment-location).
+In 2022, an estimated 55% of the film and video production workforce was based in London and the South East.^[The South East region wraps around London so includes the major studios to the west of the city.] This compares with 30% for the UK workforce as a whole (@fig-employment-location). Due to small sample sizes, the ONS have not been able to provide estimates for 2023.
 
-::: {.callout-warning collapse="false"}
-## Sample size and data coverage 
-
-Film and video production workforce estimates by region should be treated with caution as employment estimates by region are not available for many areas including:
-
-* Inner London (for employees) 
-* Central London and Outer London (for self-employed workers)
-
-Estimates are not available due to small sample sizes. Sample size may also explain, at least in part, the variation in the percentage of London and South East employment in the film and video production sector over the past decade, as seen in @fig-employment-location.
-:::
 
 ```{r}
 #| label: fig-employment-location
