@@ -18,9 +18,9 @@ website:
         text: Home
       - href: about.qmd
         text: About
-      - href: aps-report.qmd
+      - href: employment-by-sector.qmd
         text: Employment by Sector
-      - href: idbr-report.qmd
+      - href: workplaces-and-enterprises.qmd
         text: Workplaces & Enterprises
 
 format:
