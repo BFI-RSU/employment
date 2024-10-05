@@ -15,7 +15,7 @@ page-layout: article
 {{< include includes/_note.qmd >}}
 
 ## About this report
-This analysis is based on data from the Inter-Departmental Business Register (IDBR), a comprehensive list of UK businesses used by government for statistical purposes. According to the ONS: "The two main sources of input are Value Added Tax (VAT) and Pay As You Earn (PAYE) records from HMRC. Additional information comes from Companies House, Dun and Bradstreet and ONS business surveys. The IDBR covers around 2.7 million businesses in all sectors of the economy, but since the main two tax sources have thresholds, very small businesses operating below these will, in most cases, not be included."
+This report on UK film and TV workplaces and enterprises is based on data from the Inter-Departmental Business Register (IDBR), a comprehensive list of UK businesses used by government for statistical purposes. According to the ONS: "The two main sources of input are Value Added Tax (VAT) and Pay As You Earn (PAYE) records from HMRC. Additional information comes from Companies House, Dun and Bradstreet and ONS business surveys. The IDBR covers around 2.7 million businesses in all sectors of the economy, but since the main two tax sources have thresholds, very small businesses operating below these will, in most cases, not be included."
 
 {{< include includes/_reports-in-series.qmd >}}
 

@@ -1,9 +1,9 @@
-### Reports in this series
+The table below provides summary information and links to original data sources for all reports published on this website:
 
 ::: {.table-responsive}
-| Report title                                                               | Source                                                                                                                                    | Date range              | Data publication date | Next data update | RSU analysis date |
-|----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|-----------------------|------------------|-------------------|
-| [UK film and TV employment by sector](employment-by-sector.qmd)            | [ONS](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/methodologies/annualpopulationsurveyapsqmi)| January to December 2023| August 2024             | TBC              | September 2024    |
-| [UK film and TV workplaces and enterprises](workplaces-and-enterprises.qmd)| [ONS](https://www.ons.gov.uk/aboutus/whatwedo/paidservices/interdepartmentalbusinessregisteridbr)                                         | Year to March 2023      | September 2023   | September 2024   | September 2024    |
+|Report title                                                               |First published|Data source                                                                                                                               |Period covered  |Data released|Next update| 
+|---------------------------------------------------------------------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------|----------------|-------------|-----------|
+|[UK film and TV employment by sector](employment-by-sector.qmd)            |Sept 2024      |[APS](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/methodologies/annualpopulationsurveyapsqmi)|Jan to Dec 2023 |Aug 2024     |TBC        | 
+|[UK film and TV workplaces and enterprises](workplaces-and-enterprises.qmd)|Sept 2024      |[IDBR](https://www.ons.gov.uk/aboutus/whatwedo/paidservices/interdepartmentalbusinessregisteridbr)                                        |Year to Mar 2023|Sept 2023    |Sept 2024  |
 : {.striped .hover}
 :::

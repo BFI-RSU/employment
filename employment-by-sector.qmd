@@ -15,7 +15,7 @@ page-layout: article
 {{< include includes/_note.qmd >}}
 
 ## About this report
-This analysis is based on data from the Annual Population Survey (APS), a continuous household survey covering the UK. Topics covered by the survey include employment and unemployment, as well as housing, ethnicity, religion, health and education.
+This report on UK film and TV employment by sector is based on data from the Annual Population Survey (APS), a continuous household survey covering the UK. Topics covered by the survey include employment and unemployment, as well as housing, ethnicity, religion, health and education.
 
 {{< include includes/_reports-in-series.qmd >}}
 
