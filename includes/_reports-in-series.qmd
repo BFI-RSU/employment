@@ -1,0 +1,9 @@
+### Reports in this series
+
+::: {.table-responsive}
+| Report title                                  | Source                                                                                                                                    | Date range              | Data publication date | Next data update | RSU analysis date |
+|-----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|-----------------------|------------------|-------------------|
+| [IDBR employment data report](idbr-report.qmd)| [ONS](https://www.ons.gov.uk/aboutus/whatwedo/paidservices/interdepartmentalbusinessregisteridbr)                                         | Year to March 2023      | September 2023        | September 2024   | September 2024    |
+| [APS employment data report](aps-report.qmd)  | [ONS](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/methodologies/annualpopulationsurveyapsqmi)| January to December 2023| August 2024           | TBC              | September 2024    |
+: {.striped .hover}
+:::
