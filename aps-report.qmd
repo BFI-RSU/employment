@@ -1,8 +1,9 @@
 ---
-title: "APS employment data report"
+title: "UK film and TV employment by sector"
 description: Data on film industry employment by sector, collected via the Annual Population Survey. 
 author: "Ian Cade and Brian Tarran"
-date: 09/29/2024
+date: last-modified
+date-format: "D MMMM YYYY"
 execute: 
   echo: false
   warning: false

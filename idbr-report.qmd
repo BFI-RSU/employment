@@ -1,8 +1,9 @@
 ---
-title: "IDBR employment data report"
+title: "UK film and TV workplaces and enterprises"
 description: Data on film and video employment by workplace, and enterprise type by nation and region, collected via the Inter-Departmental Business Register. 
 author: "Ian Cade and Brian Tarran"
-date: 09/28/2024
+date: last-modified
+date-format: "D MMMM YYYY"
 execute: 
   echo: false
   warning: false
