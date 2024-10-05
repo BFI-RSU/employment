@@ -2,4 +2,4 @@
 title: "Employment Data Explorer (alpha)"
 ---
 
-Site under development by the [BFI Research and Statistics Unit](https://www.bfi.org.uk/industry-data-insights/). Contact us at [rsu-enquiries@bfi.org.uk](mailto:rsu-enquiries@bfi.org.uk).
+{{< include includes/_note.qmd >}}

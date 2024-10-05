@@ -1,0 +1,7 @@
+:::{.callout-note collapse="false"}
+This site, and the data and reports featured, do not form part of the BFI Research and Statistics Unit’s [official statistics releases](https://www.bfi.org.uk/industry-data-insights/official-statistics-release-calendar), and are intended only for general information for industry, policy-makers and the public. 
+
+This site, and the data and reports featured, are being published experimentally and may be withdrawn at any time when the trial is over. Please send any feedback about this trial to [rsu-enquiries@bfi.org.uk](mailto:rsu-enquiries@bfi.org.uk).
+
+For more information about the work of the BFI Research and Statistics Unit, and to access our [official statistics releases](https://www.bfi.org.uk/industry-data-insights/official-statistics-release-calendar), visit [bfi.org.uk](https://www.bfi.org.uk/industry-data-insights/).
+::: 

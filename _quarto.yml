@@ -3,8 +3,8 @@ project:
 
 website:
   title: "Employment Data Explorer (alpha)"
-  image: https://www.bfi.org.uk/dist/client/0207614d447715c2d2b9.svg
-  favicon: https://www.bfi.org.uk/dist/client/e51a86bb7ce82a9e9741.svg
+  image: 'https://www.bfi.org.uk/dist/client/0207614d447715c2d2b9.svg'
+  # favicon: 'https://www.bfi.org.uk/dist/client/e51a86bb7ce82a9e9741.svg'
   image-alt: Logo of British Film Institute
   open-graph: true
   repo-url: https://github.com/BFI-RSU/employment
@@ -18,9 +18,9 @@ website:
         text: Home
       - href: about.qmd
         text: About
-      - href: aps-report.qmd
+      - href: employment-by-sector.qmd
         text: Employment by Sector
-      - href: idbr-report.qmd
+      - href: workplaces-and-enterprises.qmd
         text: Workplaces & Enterprises
 
 format:
