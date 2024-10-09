@@ -4,14 +4,16 @@ title: "About this site"
 
 {{< include includes/_note.qmd >}}
 
-Welcome to the [BFI Research and Statistics Unit's](https://www.bfi.org.uk/industry-data-insights/) [Employment Data Explorer](index.qmd) (alpha release). Here you will find two reports containing analyses and visualisations of film industry workforce information, drawn from data collected and published by the Office for National Statistics.
+Welcome to the [BFI Research and Statistics Unit's](https://www.bfi.org.uk/industry-data-insights/) [Employment Data Explorer](index.qmd) (alpha release). Here you will find two reports containing analyses and visualisations of UK film industry workforce information, drawn from data collected and published by the Office for National Statistics.
 
 Data comes from two sources:
 
 * [The Annual Population Survey (APS)](employment-by-sector.qmd)
 * [The Inter-Departmental Business Register (IDBR)](workplaces-and-enterprises.qmd)
 
-Both sources rely on SIC codes -- the [UK Standard Industrial Classification of Economic Activities](https://www.ons.gov.uk/methodology/classificationsandstandards/ukstandardindustrialclassificationofeconomicactivities/uksic2007) -- to extract information about the film industry workforce. The relevant SIC codes, and details of what they include and exclude, are given below:
+Both sources rely on SIC codes -- the [UK Standard Industrial Classification of Economic Activities](https://www.ons.gov.uk/methodology/classificationsandstandards/ukstandardindustrialclassificationofeconomicactivities/uksic2007) -- to extract information about the film industry workforce. The five-digit SIC codes used in our reports are given below, along with details of what each SIC code includes and excludes.
+
+The five-digit SIC code breakdown is the most granular available to us and provides a best estimate of activity in the film and video sectors. However, some of the activity captured by the SIC codes used in our reports may be considered 'out of scope' for a UK film industry analysis. Activity includes, for example, work related to the production of advertising and brand film. While the output of this work differs from that of feature film or high-end TV production, say, the underlying activities and employee skillsets are broadly similar and transferable, and form part of the same creative ecosystem.
 
 #### Film and video production:
 
