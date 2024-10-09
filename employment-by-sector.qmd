@@ -10,6 +10,9 @@ execute:
   code-fold: false
 title-block-banner: true
 page-layout: article
+format:
+  html:
+    fig-cap-location: top
 ---
 
 {{< include includes/_note.qmd >}}
@@ -79,7 +82,8 @@ employment_figure1 <- plot_ly(employment_figure1,
       title = "",
       tickformat = "%Y",  # Format to show only the year
       dtick = "M12",      # Show every year on the x-axis
-      tickmode = "auto"   # Dynamically adjust based on zoom level
+      tickmode = "auto",   # Dynamically adjust based on zoom level
+      dragmode = FALSE
     ),
     yaxis = list(
       title = "Number in employment",
@@ -119,7 +123,7 @@ employment_figure1 <- plot_ly(employment_figure1,
         align = "left"
       )
     )
-  )
+)
 
 # Display the Plotly object
 employment_figure1
