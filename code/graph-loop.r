@@ -101,9 +101,14 @@ generate_sector_plot <- function(enterprises, sector_name) {
           font = list(color = "black", size = 12),
           align = "left"
         )
-      )
-    )
-  
+      ),
+      dragmode = FALSE
+  ) %>%
+    config(
+      modeBarButtonsToRemove = c('lasso2d', 'select2d', 'resetScale'),
+      displaylogo = FALSE
+  )
+
   # Return the Plotly object
   return(sector_plot)
 }

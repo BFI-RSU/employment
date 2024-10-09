@@ -82,8 +82,7 @@ employment_figure1 <- plot_ly(employment_figure1,
       title = "",
       tickformat = "%Y",  # Format to show only the year
       dtick = "M12",      # Show every year on the x-axis
-      tickmode = "auto",   # Dynamically adjust based on zoom level
-      dragmode = FALSE
+      tickmode = "auto"   # Dynamically adjust based on zoom level
     ),
     yaxis = list(
       title = "Number in employment",
@@ -122,7 +121,12 @@ employment_figure1 <- plot_ly(employment_figure1,
         font = list(color = "black", size = 12),
         align = "left"
       )
-    )
+    ),
+    dragmode = FALSE
+) %>%
+  config(
+    modeBarButtonsToRemove = c('lasso2d', 'select2d', 'resetScale'),
+    displaylogo = FALSE
 )
 
 # Display the Plotly object
@@ -149,6 +153,9 @@ employment_table2 <- employment %>%
 reactable(
   employment_table2, striped = TRUE, highlight = TRUE, compact = TRUE,
   columns = list(
+    `Year` = colDef(
+      align = 'left'
+      ),
     `Film and video production` = colDef(
       format = colFormat(
         separators = TRUE, digits = 0)
@@ -241,8 +248,13 @@ employment_location <- plot_ly(employment_location,
         font = list(color = "black", size = 12),
         align = "left"
       )
-    )
-  )
+    ),
+    dragmode = FALSE
+) %>%
+  config(
+    modeBarButtonsToRemove = c('lasso2d', 'select2d', 'resetScale'),
+    displaylogo = FALSE
+)
 
 # Display the Plotly object
 employment_location
