@@ -10,3 +10,18 @@ Data comes from two sources:
 * [The Inter-Departmental Business Register (IDBR)](https://bfi-rsu.github.io/employment/workplaces-and-enterprises.html)
 
 Both sources rely on SIC codes -- the [UK Standard Industrial Classification of Economic Activities](https://www.ons.gov.uk/methodology/classificationsandstandards/ukstandardindustrialclassificationofeconomicactivities/uksic2007) -- to extract information about the film industry workforce. See the [About](https://bfi-rsu.github.io/employment/about.html) page for an overview of the relevant SIC codes, and details of what they include and exclude.
+
+## Requirements
+Report created in [Quarto](https://quarto.org/).
+
+Analysis produced in [R](https://www.r-project.org/), using the following packages:
+
+```
+library(dplyr)
+library(here)
+library(plotly)
+library(reactable)
+library(readxl)
+library(tidyr)
+library(tidyverse)
+```
